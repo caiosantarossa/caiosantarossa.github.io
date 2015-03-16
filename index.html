@@ -1,0 +1,727 @@
+<!doctype html>
+<html class="theme-next use-motion">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.3.0rc5"/>
+
+
+
+
+
+    <meta name="keywords" content="Hexo,next" />
+
+
+
+
+
+    <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.3.0rc5" />
+
+
+
+
+  <title> Caio Santarossa Dev </title>
+</head>
+
+<body>
+  <div class="container one-column 
+   page-home 
+">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+    <a href="/" class="brand">
+        <span class="logo">
+          <i class="icon-logo"></i>
+        </span>
+        <span class="site-title">Caio Santarossa Dev</span>
+    </a>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          Home
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          Archives
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          Tags
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/03/26/apagar-todas-as-tabelas-de-um-database-mysql/">
+                Apagar todas as tabelas de um database MySQL
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+          <span class="post-time">
+            
+              Posted on 2014-03-26
+            
+          </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/03/26/apagar-todas-as-tabelas-de-um-database-mysql/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/03/26/apagar-todas-as-tabelas-de-um-database-mysql/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>Script para apagar todas as tabelas de um database MySQL, altere ‘dbName’ para o nome do seu database:</p>
+<pre><code><span class="operator"><span class="keyword">use</span> <span class="string">'dbName'</span>;</span>
+<span class="operator"><span class="keyword">SET</span> FOREIGN_KEY_CHECKS = <span class="number">0</span>;</span> 
+<span class="operator"><span class="keyword">SET</span> @<span class="keyword">tables</span> = <span class="literal">NULL</span>;</span>
+<span class="operator"><span class="keyword">SET</span> GROUP_CONCAT_MAX_LEN=<span class="number">32768</span>;</span>
+
+<span class="operator"><span class="keyword">SELECT</span> <span class="keyword">GROUP_CONCAT</span>(<span class="string">'`'</span>, table_schema, <span class="string">'`.`'</span>, table_name, <span class="string">'`'</span>) <span class="keyword">INTO</span> @<span class="keyword">tables</span>
+<span class="keyword">FROM</span>   information_schema.<span class="keyword">tables</span> 
+<span class="keyword">WHERE</span>  table_schema = (<span class="keyword">SELECT</span> <span class="keyword">DATABASE</span>());</span>
+<span class="operator"><span class="keyword">SELECT</span> <span class="keyword">IFNULL</span>(@<span class="keyword">tables</span>, <span class="string">''</span>) <span class="keyword">INTO</span> @<span class="keyword">tables</span>;</span>
+
+<span class="operator"><span class="keyword">SET</span>        @<span class="keyword">tables</span> = <span class="keyword">CONCAT</span>(<span class="string">'DROP TABLE IF EXISTS '</span>, @<span class="keyword">tables</span>);</span>
+<span class="operator"><span class="keyword">PREPARE</span>    stmt <span class="keyword">FROM</span> @<span class="keyword">tables</span>;</span>
+<span class="operator"><span class="keyword">EXECUTE</span>    stmt;</span>
+<span class="operator"><span class="keyword">DEALLOCATE</span> <span class="keyword">PREPARE</span> stmt;</span>
+<span class="operator"><span class="keyword">SET</span>        FOREIGN_KEY_CHECKS = <span class="number">1</span>;</span>
+</code></pre>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/MySQL/">
+                #MySQL
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/03/26/certificado-ssl-no-tomcat-6/">
+                Certificado SSL no Tomcat 6
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+          <span class="post-time">
+            
+              Posted on 2014-03-26
+            
+          </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/03/26/certificado-ssl-no-tomcat-6/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/03/26/certificado-ssl-no-tomcat-6/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>Olá pessoal, dica rápida sobre como adicionar um certificado SSL no Tomcat 6:</p>
+<p>De posse do certificado (certificado.crt) e da chave privada (certificado.key) vamos gerar o arquivo PKCS12 (certificado.pkcs12) que é um dos formatos suportados pelo Tomcat 6, usando o openssl:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ openssl pkcs12 -export -inkey certificado<span class="class">.key</span> -<span class="keyword">in</span> certificado<span class="class">.crt</span> -out certificado.pkcs12</span><br></pre></td></tr></table></figure>
+<p>Será solicitado a criação de uma senha, ela será utilizada na importação do certificado e também no arquivo de configuração do Tomcat mais abaixo.</p>
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2014/03/26/certificado-ssl-no-tomcat-6/#more">
+                Read more &raquo;
+              </a>
+            </div>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Java/">
+                #Java
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/03/08/criando-um-blog-com-octopress/">
+                Criando um Blog com Octopress
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+          <span class="post-time">
+            
+              Posted on 2014-03-08
+            
+          </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/03/08/criando-um-blog-com-octopress/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/03/08/criando-um-blog-com-octopress/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>Olá pessoal, hoje vou mostrar como criar um blog utilizando o Octopress e hospedando os arquivos no S3 da Amazon, assim como está sendo feito neste blog atualmente.</p>
+<p>Conheci o Octopress através <a href="http://eltonminetto.net/blog/2013/01/04/migrando-wordpress-para-octopress" target="_blank">deste post do Elton Minetto</a> e fiquei bastante curioso para experimentá-lo.</p>
+<h2 id="Octopress">Octopress</h2><p>O Octopress é um framework para o Jekyll, o gerador de páginas do GitHub Pages, ele cria as páginas html através de <a href="http://daringfireball.net/projects/markdown/" target="_blank">Markdown</a> e é bastante versátil.</p>
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2014/03/08/criando-um-blog-com-octopress/#more">
+                Read more &raquo;
+              </a>
+            </div>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Octopress/">
+                #Octopress
+              </a>
+            
+              <a href="/tags/Ruby/">
+                #Ruby
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/02/06/novo-blog/">
+                Novo blog, novos desafios
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+          <span class="post-time">
+            
+              Posted on 2014-02-06
+            
+          </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/02/06/novo-blog/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/02/06/novo-blog/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <img src="/images/keep-calm-and-blog-on.png" class="center" width="200">
+<p>Ano novo, vida nova e blog novo!</p><br><p>Estou começando este blog para compartilhar tudo que tenho aprendido no decorrer de minha carreira profissional, vocês poderão acompanhar aqui artigos sobre programação em diversas linguagens, Frameworks, APIs e tudo mais que envolve o universo do desenvolvimento e da tecnologia.</p><br><p>Sejam bem-vindos e fiquem a vontade para comentar, enviar sugestões, críticas, etc.</p>
+
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+
+          </div>
+
+          
+        </div>
+
+        
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+
+    
+
+    <div class="site-overview">
+      <div class="site-author motion-element">
+        <img class="site-author-image" src="https://secure.gravatar.com/avatar/48fb216501589ad0fd722e06eafc429b" alt="Caio Santarossa" />
+        <p class="site-author-name">Caio Santarossa</p>
+      </div>
+      <p class="site-description motion-element"></p>
+      <div class="site-state motion-element">
+        <div class="site-state-item site-state-posts">
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">posts</span>
+        </div>
+        <div class="site-state-item site-state-tags">
+            <span class="site-state-item-count">4</span>
+            <span class="site-state-item-name">tags</span>
+        </div>
+        <div class="site-state-item site-state-pages">
+            <span class="site-state-item-count">1</span>
+            <span class="site-state-item-name">pages</span>
+        </div>
+      </div>
+
+      
+
+      <div class="social-info motion-element">
+        
+          
+            <span class="social-item">
+              <a href="http://github.com/caiosantarossa">GitHub</a>
+            </span>
+          
+            <span class="social-item">
+              <a href="http://twitter.com/caiosantarossa">Twitter</a>
+            </span>
+          
+        
+      </div>
+
+    </div>
+
+    
+  </div>
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp; 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">Caio Santarossa</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme - <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT</a>
+</div>
+
+
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".fancybox").fancybox();
+    });
+  </script>
+
+  <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+</script>
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" id="motion.page.home">
+    $(document).ready(function () {
+      $.Velocity.RunSequence([
+        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
+        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200, sequenceQueue: false } }
+      ]);
+      $('.menu-item').velocity('transition.slideDownIn', {display: null});
+    });
+  </script>
+
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    sidebatToggleMotion();
+    postsListMotion();
+    backToTopMotion();
+
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      $('.post').velocity('transition.slideDownIn', {stagger: 300, drag: true});
+    }
+
+    function sidebatToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+    
+      
+    
+
+    <script type="text/javascript">
+      var disqus_shortname = 'caiosantarossadev';
+      var disqus_identifier = 'index.html';
+      var disqus_url = '';
+
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }());
+    </script>
+  
+
+
+  
+</body>
+</html>
