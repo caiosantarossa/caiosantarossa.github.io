@@ -18,9 +18,19 @@
 
 
 
-	<meta name="keywords" content="Octopress,Ruby," />
 
-  <title> Criando um Blog com Octopress // Caio Santarossa Dev </title>
+    <meta name="keywords" content="Hexo,next" />
+
+
+
+
+
+    <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.3.0rc5" />
+
+
+
+
+  <title> QCon São Paulo 2015 - Dia 1 // Caio Santarossa Dev </title>
 </head>
 
 <body>
@@ -91,7 +101,7 @@
           
           
             
-              Criando um Blog com Octopress
+              QCon São Paulo 2015 - Dia 1
             
           
         </h1>
@@ -100,15 +110,15 @@
       <div class="post-meta">
           <span class="post-time">
             
-              Posted on 2014-03-08
+              Posted on 2015-03-28
             
           </span>
         
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2014/03/08/criando-um-blog-com-octopress/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/03/08/criando-um-blog-com-octopress/"></span>
+            <a href="/2015/03/28/QCon-Sao-Paulo-2015-Dia-1/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/03/28/QCon-Sao-Paulo-2015-Dia-1/"></span>
             </a>
           </span>
           
@@ -123,36 +133,34 @@
         
 
         
-          <p>Olá pessoal, hoje vou mostrar como criar um blog utilizando o Octopress e hospedando os arquivos no S3 da Amazon, assim como está sendo feito neste blog atualmente.</p>
-<p>Conheci o Octopress através <a href="http://eltonminetto.net/blog/2013/01/04/migrando-wordpress-para-octopress" target="_blank">deste post do Elton Minetto</a> e fiquei bastante curioso para experimentá-lo.</p>
-<h2 id="Octopress">Octopress</h2><p>O Octopress é um framework para o Jekyll, o gerador de páginas do GitHub Pages, ele cria as páginas html através de <a href="http://daringfireball.net/projects/markdown/" target="_blank">Markdown</a> e é bastante versátil.</p>
+          <p>Tive a oportunidade de participar do primeiro dia da conferência QCon SP esse ano e aqui vai um resumo sobre o que vi lá.</p>
+<p>Primeiro sobre a conferência em si, estava bem legal, bastante pessoas e muito networking durante o intervalo das palestras.</p>
 <a id="more"></a>
-<h3 id="Instalação">Instalação</h3><p>Itens necessários para executar o Octopress:</p>
-<ul>
-<li>Git</li>
-<li>Ruby 1.9.3 ou superior usando <a href="http://octopress.org/docs/setup/rbenv/" target="_blank">Rbenv</a> ou <a href="http://octopress.org/docs/setup/rvm/" target="_blank">RVM</a></li>
-</ul>
-<p>Clone o repositório do Octopress para a pasta raiz do seu blog e instale o <a href="http://bundler.io/" target="_blank">Bundler</a>, você precisa de permissões de root para isto:<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git clone gi<span class="variable">t:</span>//github.<span class="keyword">com</span>/imathis/octopress.git meu-blog</span><br><span class="line">$ <span class="keyword">cd</span> meu-blog</span><br><span class="line">$ gem install bundler</span><br><span class="line">$ rbenv rehash    # If you use rbenv, rehash <span class="keyword">to</span> <span class="keyword">be</span> able <span class="keyword">to</span> run the bundle <span class="keyword">command</span></span><br></pre></td></tr></table></figure></p>
-<p>Instale as dependências do projeto:<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bundle <span class="keyword">install</span></span><br></pre></td></tr></table></figure></p>
-<p>Instale o tema padrão do Octopress<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rake <span class="keyword">install</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="Configuração">Configuração</h3><p>As configurações básicas do blog podem ser alteradas no arquivo _config.yml como título, url, autor, etc.</p>
-<p>A partir disso você já consegue criar novos posts. Existem vários plugins e configurações adicionais que podem ser feitas e também diversos temas, tudo isso você pode conferir na <a href="http://octopress.org/docs/" target="_blank">Documentação Oficial do Octopress </a>.</p>
-<h3 id="Principais_Comandos">Principais Comandos</h3><p>Novo Post<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>rake new_post[<span class="string">"Título do Post"</span>]</span><br></pre></td></tr></table></figure></p>
-<p>Gerar arquivos e visualizar<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>rake generate   <span class="comment"># Generates posts and pages into the public directory</span></span><br><span class="line"><span class="variable">$ </span>rake watch      <span class="comment"># Watches source/ and sass/ for changes and regenerates</span></span><br><span class="line"><span class="variable">$ </span>rake preview    <span class="comment"># Watches, and mounts a webserver at http://localhost:4000</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="Deploy_no_Amazon_S3">Deploy no Amazon S3</h3><p>Para utilizar o S3 da Amazon como servidor estático siga os seguintes passos:</p>
-<p>Crie um Bucket no S3 onde o nome será o domínio de seu blog (ex: blog.meudominio.com) e nas propriedades altere Static Website Hosting para Enabled.</p>
-<p>No seu DNS crie um registro do tipo CNAME apontando para o endpoint do Bucket criado, algo como blog.meudominio.com.s3-website-sa-east-1.amazonaws.com.</p>
-<p>Para automatizar o processo de deploy no S3 instale o utilitário s3cmd e configure com suas credenciais da AWS:<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ apt-<span class="keyword">get</span> install s3cmd</span><br><span class="line">$ s3cmd <span class="comment">--configure</span></span><br></pre></td></tr></table></figure></p>
-<p>Com isso pronto inclua o trecho abaixo no arquivo Rakefile:</p>
-<pre><code>desc <span class="string">"Deploy website via s3cmd"</span>
-task <span class="symbol">:s3</span> <span class="keyword">do</span>
-  puts <span class="string">"## Deploying website via s3cmd"</span>
-  ok_failed system(<span class="string">"s3cmd sync --acl-public --reduced-redundancy public/* s3://<span class="subst">#{s3_bucket}</span>/"</span>)
-<span class="keyword">end</span>
-</code></pre><p>E também inclua no início do arquivo Rakefile as propriedades do deploy:<br>    deploy_default = “s3”<br>    s3_bucket = “blog.meudominio.com”</p>
-<p>Pronto! Agora para fazer o deploy é só executar:<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>rake generate &amp;&amp; rake deploy</span><br></pre></td></tr></table></figure></p>
-<p>Com isso você possui um Blog com Octopress armazenando os dados no S3 pagando apenas alguns centavos por mês. ;)</p>
-<p>Até a próxima!</p>
+<p>Peguei um pouco de trânsito no caminho e não cheguei a tempo do keynote sobre Docker que foi apresentado pelo Jerôme Petazzoni mas me disseram que o conteúdo apresentado foi mais uma visão geral do ecossistema Docker.</p>
+<h3 id="Os_7_pecados_capitais_na_exposição_de_APIs_RESTful_por_Kleber_Bacili">Os 7 pecados capitais na exposição de APIs RESTful por Kleber Bacili</h3><p>Sou um pouco suspeito para falar da palestra do meu chefe mas o conteúdo apresentado foi muito bom, o Kleber fez uma referência entre cada pecado capital e sua representação como erro na exposição de uma API Pública, os erros apresentados:</p>
+<ol>
+<li>Inveja - Valor questionável</li>
+<li>Preguiça - Design Mequetrefe</li>
+<li>Luxúria - Segurança 8 ou 80</li>
+<li>Avareza - Diﬁcultar a vida do Dev</li>
+<li>Gula - Entregar a API Instável</li>
+<li>Ira - Irritar os Devs</li>
+<li>Soberba - Dirigir de olhos fechados   </li>
+</ol>
+<p>O slide da palestra está disponível aqui: <a href="http://www.slideshare.net/kleberbacili/os-7-pecados-capitais-na-exposio-de-apis-restful" target="_blank" rel="external">http://www.slideshare.net/kleberbacili/os-7-pecados-capitais-na-exposio-de-apis-restful</a></p>
+<h3 id="Next-generation_Scala_architectures_for_large-scale_distributed_applications_por_Ryan_Knight">Next-generation Scala architectures for large-scale distributed applications por Ryan Knight</h3><p>Nesta palestra Ryan Knight fez um overview sobre programação funcional e reativa com Scala, Akka, Cassandra e Spark.<br>Ele apresentou diversos conceitos sobre aplicação distribuída usando a stack mencionada, incluído na lista para um estudo mais apronfudado.</p>
+<h3 id="Estrangulando_o_legado_na_SoundCloud_por_Flavio_Brasil">Estrangulando o legado na SoundCloud por Flavio Brasil</h3><p>O Flavio Brasil falou um pouco sobre a entropia no desenvolvimento de software e mostrou<br>como estão evoluindo uma aplicação monolítica Ruby para micro serviços em Scala na SoundCloud.</p>
+<p>A evolução está sendo feita usando o padrão Strangler Application do Martin Fowler que consiste em desenvolver uma camada acima da aplicação legada, conforme esta nova camada for evoluindo a aplicação legada vai morrendo até deixar de existir completamente.</p>
+<p>Um conceito bastante interessante, anotado para quando precisar!</p>
+<h3 id="Evolução_guiada_por_APIs:_criando_uma_arquitetura_híbrida_com_REST_para_modernizar_seu_legado_por_Rodrigo_Silva_e_Otoniel_da_Silva">Evolução guiada por APIs: criando uma arquitetura híbrida com REST para modernizar seu legado por Rodrigo Silva e Otoniel da Silva</h3><p>O Rodrigo e o Otoniel da CI&amp;T apresentaram como estão evoluindo uma aplicação com tecnologia java antiga da NSK para novas tecnologias como API e AngularJS.</p>
+<p>Muito bom para nós desenvolvedores ver que é possível evoluir um sistema com tecnologias antigas e continuar entregando valor para o cliente.</p>
+<h3 id="Clojure,_REST_e_Containers_em_produção_no_mercado_financeiro_por_Lucas_Cavalcanti_e_Rafael_Ferreira">Clojure, REST e Containers em produção no mercado financeiro por Lucas Cavalcanti e Rafael Ferreira</h3><p>Muito boa palestra do Lucas e Rafael falando sobre o stack tecnológico da Nubank, estava bastante interessado em saber as tecnologias utilizadas por essa empresa que tem impressionado tanta gente.</p>
+<p>Basicamente eles utilizam o Clojure como linguagem, o Datomic como banco de dados (um banco NoSql ACID bastante impressionante), Kafka para mensageria, AWS para infra, Docker como container e Ruby para deploy.</p>
+<p>Eles também utilizam REST e Hypermedia nas APIs, muito bom ver isso em uma empresa brasileria, ainda mais sendo do mercado financeiro.</p>
+<h3 id="Escalando_o_99taxis:_desafios_e_lados_obscuros_da_arquitetura_distribuída_por_Renato_Freitas_e_Giuliano_Caliari">Escalando o 99taxis: desafios e lados obscuros da arquitetura distribuída por Renato Freitas e Giuliano Caliari</h3><p>Nessa palestra o Renato e o Giuliano apresentaram um pouco da história empreendedora e tecnológica da 99taxis, mas de forma bem superficial.</p>
+<p>Basicamente falaram sobre o desafio tecnológico que estão enfrentando para transformar uma aplicação monolítica em micro serviços, foi bem superficial mas é sempre bom ver casos de startups brasileiras que deram certo e agora estão tentando superar os dasafios tecnológicos que aparecem pelo caminho.</p>
+<h3 id="Conclusão">Conclusão</h3><p>Foi um evento muito bom, se falou muito em Microservices, Docker e Scala, com certeza devemos ficar atentos a estas tecnologias.</p>
+<p>Assim que encontrar os demais slides coloco o link aqui =)</p>
 
         
       </div>
@@ -161,30 +169,16 @@ task <span class="symbol">:s3</span> <span class="keyword">do</span>
     
       <div class="post-footer">
         
-          <div class="post-tags">
-            
-              <a href="/tags/Octopress/">
-                #Octopress
-              </a>
-            
-              <a href="/tags/Ruby/">
-                #Ruby
-              </a>
-            
-          </div>
-        
 
         
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2014/03/26/certificado-ssl-no-tomcat-6/">Certificado SSL no Tomcat 6</a>
-              
             </div>
 
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2014/02/06/novo-blog/">Novo blog, novos desafios</a>
+                <a href="/2014/03/26/apagar-todas-as-tabelas-de-um-database-mysql/">Apagar todas as tabelas de um database MySQL</a>
               
             </div>
           </div>
@@ -277,7 +271,7 @@ task <span class="symbol">:s3</span> <span class="keyword">do</span>
 
     
       <div class="post-toc sidebar-panel-active">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Octopress"><span class="nav-number">1.</span> <span class="nav-text">Octopress</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Instalação"><span class="nav-number">1.1.</span> <span class="nav-text">Instalação</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuração"><span class="nav-number">1.2.</span> <span class="nav-text">Configuração</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Principais_Comandos"><span class="nav-number">1.3.</span> <span class="nav-text">Principais Comandos</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy_no_Amazon_S3"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy no Amazon S3</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Os_7_pecados_capitais_na_exposição_de_APIs_RESTful_por_Kleber_Bacili"><span class="nav-number">1.</span> <span class="nav-text">Os 7 pecados capitais na exposição de APIs RESTful por Kleber Bacili</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Next-generation_Scala_architectures_for_large-scale_distributed_applications_por_Ryan_Knight"><span class="nav-number">2.</span> <span class="nav-text">Next-generation Scala architectures for large-scale distributed applications por Ryan Knight</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Estrangulando_o_legado_na_SoundCloud_por_Flavio_Brasil"><span class="nav-number">3.</span> <span class="nav-text">Estrangulando o legado na SoundCloud por Flavio Brasil</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Evolução_guiada_por_APIs:_criando_uma_arquitetura_híbrida_com_REST_para_modernizar_seu_legado_por_Rodrigo_Silva_e_Otoniel_da_Silva"><span class="nav-number">4.</span> <span class="nav-text">Evolução guiada por APIs: criando uma arquitetura híbrida com REST para modernizar seu legado por Rodrigo Silva e Otoniel da Silva</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Clojure,_REST_e_Containers_em_produção_no_mercado_financeiro_por_Lucas_Cavalcanti_e_Rafael_Ferreira"><span class="nav-number">5.</span> <span class="nav-text">Clojure, REST e Containers em produção no mercado financeiro por Lucas Cavalcanti e Rafael Ferreira</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Escalando_o_99taxis:_desafios_e_lados_obscuros_da_arquitetura_distribuída_por_Renato_Freitas_e_Giuliano_Caliari"><span class="nav-number">6.</span> <span class="nav-text">Escalando o 99taxis: desafios e lados obscuros da arquitetura distribuída por Renato Freitas e Giuliano Caliari</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Conclusão"><span class="nav-number">7.</span> <span class="nav-text">Conclusão</span></a></li></ol>
       </div>
     
   </div>
@@ -793,8 +787,8 @@ task <span class="symbol">:s3</span> <span class="keyword">do</span>
 
     <script type="text/javascript">
       var disqus_shortname = 'caiosantarossadev';
-      var disqus_identifier = '2014/03/08/criando-um-blog-com-octopress/';
-      var disqus_url = 'http://yoursite.com/2014/03/08/criando-um-blog-com-octopress/';
+      var disqus_identifier = '2015/03/28/QCon-Sao-Paulo-2015-Dia-1/';
+      var disqus_url = 'http://yoursite.com/2015/03/28/QCon-Sao-Paulo-2015-Dia-1/';
 
       (function(){
         var dsq = document.createElement('script');

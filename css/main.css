@@ -702,12 +702,12 @@ td {
 }
 .post pre,
 .post .highlight {
-  background: #1d1f21;
+  background: #f7f7f7;
   margin: 20px 0;
   padding: 15px;
   overflow: auto;
   font-size: 13px;
-  color: #c5c8c6;
+  color: #4d4d4c;
   line-height: 1.8;
 }
 .post .highlight .gutter pre,
@@ -743,7 +743,7 @@ td {
 }
 .post .highlight figcaption {
   font-size: 0.85em;
-  color: #969896;
+  color: #8e908c;
   line-height: 1em;
   margin-bottom: 1em;
 }
@@ -762,7 +762,7 @@ td {
   border-style: solid;
   border-color: $baseBorderColor;
   border-width: 1px 0;
-  background: #1d1f21;
+  background: #f7f7f7;
   padding: 15px 40px 15px 15px;
 }
 .post .gist .gist-file {
@@ -788,8 +788,8 @@ td {
   border: none;
 }
 .post .gist .gist-file .gist-meta {
-  background: #1d1f21;
-  color: #969896;
+  background: #f7f7f7;
+  color: #8e908c;
   font: 13px Lato, "Microsoft Jhenghei", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   text-shadow: 0 0;
   padding: 0;
@@ -804,7 +804,7 @@ td {
   text-decoration: underline;
 }
 pre .comment {
-  color: #969896;
+  color: #8e908c;
 }
 pre .variable,
 pre .attribute,
@@ -818,7 +818,7 @@ pre .html .doctype,
 pre .css .id,
 pre .css .class,
 pre .css .pseudo {
-  color: #c66;
+  color: #c82829;
 }
 pre .number,
 pre .preprocessor,
@@ -826,11 +826,11 @@ pre .built_in,
 pre .literal,
 pre .params,
 pre .constant {
-  color: #de935f;
+  color: #f5871f;
 }
 pre .ruby .class .title,
 pre .css .rules .attribute {
-  color: #b5bd68;
+  color: #718c00;
 }
 pre .string,
 pre .value,
@@ -838,11 +838,11 @@ pre .inheritance,
 pre .header,
 pre .ruby .symbol,
 pre .xml .cdata {
-  color: #b5bd68;
+  color: #718c00;
 }
 pre .title,
 pre .css .hexcolor {
-  color: #8abeb7;
+  color: #3e999f;
 }
 pre .function,
 pre .python .decorator,
@@ -852,11 +852,11 @@ pre .ruby .title .keyword,
 pre .perl .sub,
 pre .javascript .title,
 pre .coffeescript .title {
-  color: #81a2be;
+  color: #4271ae;
 }
 pre .keyword,
 pre .javascript .function {
-  color: #b294bb;
+  color: #8959a8;
 }
 .header-inner {
   margin: 0 auto;
@@ -1098,7 +1098,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff7ebf;
+  background: #6ccdff;
 }
 .sidebar-nav {
   margin: 0;
